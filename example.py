@@ -1,7 +1,7 @@
 from dbleupy import dbleu_postservercount, dbleu_getbotvotes, dbleu_getbotdata
 from discord.ext import tasks
 
-dbleuKEY = "APIKEY"
+dbleuKEY = "APIKEY" # Get it from https://dev.discord-botlist.eu
 
 r = dbleu_getbotvotes(dbleuKEY)
 print(r.content)
@@ -12,10 +12,11 @@ print(r.content)
 # GET BOTDATA
 
 
-
 dbleu_postservercount(dbleuKEY, len(client/bot.guilds))
+# POST SERVER COUNT
 
-#auto_post.start()
+
+# YOU CAN FIND MORE ON https://docs.discord-botlist.eu
 
 
 

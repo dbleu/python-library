@@ -21,12 +21,12 @@ with open('README.txt', encoding="utf-8") as f:
 
 setup(
   name='dbleupy',
-  version='2.0.2',
+  version='2.1.0',
   description='This package offers you a more user friendly and easier way to interact with the discord-botlist.eu HTTP api.',
   long_description=readme,
   long_description_content_type="text/markdown",
   #charset="UTF-8",
-  url='', 
+  url='https://github.com/dbleu/python-library', 
   author='Florent Tahiri',
   author_email='florent.tahiri@gski.de',
   license='MIT', 
