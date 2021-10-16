@@ -20,7 +20,6 @@ To install the library you can just run the following command:
     py -3 -m pip install -U dbleupy
 
 
-
 Quick Example
 --------------
     from dbleupy import dbleu_postservercount, dbleu_getbotvotes, dbleu_getbotdata
@@ -56,7 +55,7 @@ print(r.content)
 
 @tasks.loop(minutes=5)
 async def auto_post():
-    dbleu_postservercount(dbleuKEY, 200)
+    dbleu_postservercount(dbleuKEY, len(client/bot.guilds))
 
 auto_post.start()
 # POST SERVERCOUNT every 5 mins.
