@@ -1,6 +1,18 @@
 import requests
 import json
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
 def dbleu_postservercount(apikey, servercount):
 
     r = requests.patch('https://api.discord-botlist.eu/v1/update', headers={
@@ -10,12 +22,13 @@ def dbleu_postservercount(apikey, servercount):
 
     if r.status_code == 400:
 
-        return print("[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied. - ./update")
+        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied. - ./update")
     
 
     if r.status_code == 200:
 
-        return print(f"[API] discord-botlist.eu HTTP: 200 - Posted server count ({servercount}) - ./update")
+        return print(bcolors.OKGREEN + f"[API] discord-botlist.eu HTTP: 200 - Posted server count ({servercount}) - ./update")
+
 
     else:
         content = r.content
@@ -25,7 +38,7 @@ def dbleu_postservercount(apikey, servercount):
         content = json.loads(content)
 
 
-        return print(f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']} - ./update")
+        return print(bcolors.FAIL + f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']} - ./update")
     
 
 
@@ -35,11 +48,11 @@ def dbleu_getbotvotes(apikey):
 
     if r.status_code == 400:
 
-        return print("[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied. - ./votes")
+        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied. - ./votes")
 
     if r.status_code == 200:
 
-        print(f"[API] discord-botlist.eu HTTP: {r.status_code} - ./votes")
+        print(bcolors.OKGREEN + f"[API] discord-botlist.eu HTTP: {r.status_code} - ./votes")
 
         return r
 
@@ -50,7 +63,7 @@ def dbleu_getbotvotes(apikey):
 
         content = json.loads(content)
 
-        return print(f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']} - ./votes")
+        return print(bcolors.FAIL + f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']} - ./votes")
 
 
 
@@ -60,11 +73,11 @@ def dbleu_getbotdata(apikey):
 
     if r.status_code == 400:
 
-        return print("[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied. - ./ping")
+        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied. - ./ping")
 
     if r.status_code == 200:
 
-        print(f"[API] discord-botlist.eu HTTP: {r.status_code} - ./ping")
+        print(bcolors.OKGREEN + f"[API] discord-botlist.eu HTTP: {r.status_code} - ./ping")
 
         return r
 
@@ -75,5 +88,5 @@ def dbleu_getbotdata(apikey):
 
         content = json.loads(content)
 
-        return print(f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']} - ./ping")
+        return print(bcolors.FAIL + f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']} - ./ping")
 
