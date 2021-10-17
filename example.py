@@ -1,7 +1,7 @@
 from dbleupy import dbleu_postservercount, dbleu_getbotvotes, dbleu_getbotdata
 from discord.ext import tasks
 
-dbleuKEY = "API" # Get it from https://dev.discord-botlist.eu
+dbleuKEY = "APIKEY" # Get it from https://dev.discord-botlist.eu
 
 r = dbleu_getbotvotes(dbleuKEY)
 

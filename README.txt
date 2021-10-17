@@ -24,7 +24,7 @@ Quick Example
 --------------
     from dbleupy import dbleu_postservercount, dbleu_getbotvotes, dbleu_getbotdata
 
-    dbleuKEY = "APIKEY"
+    dbleuKEY = "APIKEY" # Get it from https://dev.discord-botlist.eu
 
     r = dbleu_getbotvotes(dbleuKEY)
     print(r.content)
@@ -43,7 +43,7 @@ Example with auto post
 from dbleupy import dbleu_postservercount, dbleu_getbotvotes, dbleu_getbotdata
 from discord.ext import tasks
 
-dbleuKEY = "APIKEY"
+dbleuKEY = "APIKEY" # Get it from https://dev.discord-botlist.eu
 
 r = dbleu_getbotvotes(dbleuKEY)
 print(r.content)
@@ -71,6 +71,4 @@ Official Website: https://discord-botlist.eu
 
 Official Discord Server: https://discord.gg/FR3cA5dWK6
 
-Discord Developers: https://discord.gg/discord-developers
-
-Discord-botlist.eu API: https://dev.discord-botlist.eu
+Discord-botlist.eu Developers: https://dev.discord-botlist.eu
