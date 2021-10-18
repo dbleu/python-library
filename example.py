@@ -4,12 +4,10 @@ from discord.ext import tasks
 dbleuKEY = "APIKEY" # Get it from https://dev.discord-botlist.eu
 
 r = dbleu_getbotvotes(dbleuKEY)
-
 # GET ALL BOT VOTES
 
 
 r = dbleu_getbotdata(dbleuKEY)
-
 # GET BOTDATA
 
 
