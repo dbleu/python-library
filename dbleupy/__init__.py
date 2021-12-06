@@ -15,63 +15,77 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-def dbleu_postservercount(apikey=None, servercount=None):
+def dbleu_postservercount(apikey=None, servercount=None, log_disable=None):
 
 
     if apikey == None and servercount == None:
-        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: APIKEY & ServerCount missing find more on https://pypi.org/project/dbleupy/ - ./dbleu_postservercount" + bcolors.ENDC)
-
+        if log_disable == None or log_disable == False:
+            print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: APIKEY & ServerCount missing find more on https://pypi.org/project/dbleupy/ - ./dbleu_postservercount" + bcolors.ENDC)
+        return
 
     if apikey == None:
-        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: APIKEY missing find more on https://pypi.org/project/dbleupy/ - ./dbleu_postservercount" + bcolors.ENDC)
-
+        if log_disable == None or log_disable == False:
+            print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: APIKEY missing find more on https://pypi.org/project/dbleupy/" + bcolors.ENDC)
+        return
 
     if servercount == None:
-        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: ServerCount missing find more on https://pypi.org/project/dbleupy/ - ./dbleu_postservercount" + bcolors.ENDC)
+        if log_disable == None or log_disable == False:
+            print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: ServerCount missing find more on https://pypi.org/project/dbleupy/" + bcolors.ENDC)
+        return
+
+    try:
+        guilds = len(servercount.guilds)
+
+        r = requests.patch('https://api.discord-botlist.eu/v1/update', headers={
+            "Authorization": f"Bearer {apikey}"
+                    }, json=({"serverCount": guilds}))
 
 
-    r = requests.patch('https://api.discord-botlist.eu/v1/update', headers={
-        "Authorization": f"Bearer {apikey}"
-                }, json=({"serverCount": servercount}))
+        if r.status_code == 400:
+            if log_disable == None or log_disable == False:
+                print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied." + bcolors.ENDC)
+            return
+
+        if r.status_code == 200:
+            if log_disable == None or log_disable == False:
+
+                print(bcolors.OKGREEN + f"[API] discord-botlist.eu HTTP: 200 - Posted server count ({guilds})" + bcolors.ENDC)
+            return
+
+        else:
+            content = r.content
+            content = content.decode("utf-8")
 
 
-    if r.status_code == 400:
+            content = json.loads(content)
 
-        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied. - ./dbleu_postservercount" + bcolors.ENDC)
-
-
-    if r.status_code == 200:
-
-
-        return print(bcolors.OKGREEN + f"[API] discord-botlist.eu HTTP: 200 - Posted server count ({servercount}) - ./dbleu_postservercount" + bcolors.ENDC)
-
-
-    else:
-        content = r.content
-        content = content.decode("utf-8")
+            if log_disable == None or log_disable == False:
+                print(bcolors.FAIL + f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']}" + bcolors.ENDC)
+            return
+    except:
+        if log_disable == None or log_disable == False:
+            print(bcolors.FAIL + f"[API] discord-botlist.eu HTTP: Please check your bot's data (bot or self.bot)" + bcolors.ENDC)
+        return
 
 
-        content = json.loads(content)
-
-
-        return print(bcolors.FAIL + f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']} - ./dbleu_postservercount" + bcolors.ENDC)
-    
-
-
-def dbleu_getbotvotes(apikey=None):
+def dbleu_getbotvotes(apikey=None, log_disable=None):
     
     if apikey == None:
-        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: APIKEY missing find more on https://pypi.org/project/dbleupy/ - ./dbleu_getbotvotes" + bcolors.ENDC)
+        if log_disable == None or log_disable == False:
+            print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: APIKEY missing find more on https://pypi.org/project/dbleupy/" + bcolors.ENDC)
+
+        return
 
     r = requests.get('https://api.discord-botlist.eu/v1/votes', headers={"Authorization": f"Bearer {apikey}"})
 
     if r.status_code == 400:
-
-        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied. - ./dbleu_getbotvotes" + bcolors.ENDC)
+        if log_disable == None or log_disable == False:
+            print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied." + bcolors.ENDC)
+        return
 
     if r.status_code == 200:
 
-        print(bcolors.OKGREEN + f"[API] discord-botlist.eu HTTP: {r.status_code} - ./dbleu_getbotvotes" + bcolors.ENDC)
+        print(bcolors.OKGREEN + f"[API] discord-botlist.eu HTTP: {r.status_code}" + bcolors.ENDC)
 
         return r
 
@@ -82,25 +96,30 @@ def dbleu_getbotvotes(apikey=None):
 
         content = json.loads(content)
 
-        return print(bcolors.FAIL + f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']} - ./dbleu_getbotvotes" + bcolors.ENDC)
+        if log_disable == None or log_disable == False:
+            print(bcolors.FAIL + f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']}" + bcolors.ENDC)
+        return
 
 
 
-def dbleu_getbotdata(apikey=None):
+def dbleu_getbotdata(apikey=None, log_disable=None):
 
     if apikey == None:
-        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: APIKEY missing find more on https://pypi.org/project/dbleupy/ - ./dbleu_getbotdata" + bcolors.ENDC)
+        if log_disable == None or log_disable == False:
+            print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: APIKEY missing find more on https://pypi.org/project/dbleupy/" + bcolors.ENDC)
+        return
 
 
     r = requests.get('https://api.discord-botlist.eu/v1/ping', headers={"Authorization": f"Bearer {apikey}"})
 
     if r.status_code == 400:
-
-        return print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied. - ./dbleu_getbotdata" + bcolors.ENDC)
+        if log_disable == None or log_disable == False:
+            print(bcolors.FAIL + "[API] discord-botlist.eu HTTP: 400 - Please check your API key. Access denied." + bcolors.ENDC)
+        return
 
     if r.status_code == 200:
 
-        print(bcolors.OKGREEN + f"[API] discord-botlist.eu HTTP: {r.status_code} - ./dbleu_getbotdata" + bcolors.ENDC)
+        print(bcolors.OKGREEN + f"[API] discord-botlist.eu HTTP: {r.status_code}" + bcolors.ENDC)
 
         return r
 
@@ -110,6 +129,7 @@ def dbleu_getbotdata(apikey=None):
         content = content.decode("utf-8")
 
         content = json.loads(content)
-
-        return print(bcolors.FAIL + f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']} - ./dbleu_getbotdata" + bcolors.ENDC)
+        if log_disable == None or log_disable == False:
+            print(bcolors.FAIL + f"[API] discord-botlist.eu HTTP: {r.status_code} - {content['message']}" + bcolors.ENDC)
+        return
 

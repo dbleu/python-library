@@ -1,23 +1,20 @@
+import discord # USING py-cord
 from dbleupy import dbleu_postservercount, dbleu_getbotvotes, dbleu_getbotdata
-from discord.ext import tasks
+from discord.ext import commands
 
-dbleuKEY = "APIKEY" # Get it from https://dev.discord-botlist.eu
-
-r = dbleu_getbotvotes(dbleuKEY)
-# GET ALL BOT VOTES
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix=commands.when_mentioned_or("-"), intents=intents)
 
 
-r = dbleu_getbotdata(dbleuKEY)
-# GET BOTDATA
+@bot.event
+async def on_ready():
+    print(f"Online as {bot.user.name}")
 
+    dbleuKEY = "" # Get it from https://dev.discord-botlist.eu
 
-dbleu_postservercount(dbleuKEY, len(client/bot.guilds))
-# POST SERVER COUNT
-
-
-# YOU CAN FIND MORE ON https://docs.discord-botlist.eu
+    dbleu_postservercount(dbleuKEY, bot, log_disable=False)
 
 
 
 
-
+bot.run("DISCORD-BOT-TOKEN")

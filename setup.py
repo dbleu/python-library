@@ -15,13 +15,15 @@ classifiers = [
         'Typing :: Typed',
       ]
 
+
 readme = ''
 with open('README.txt', encoding="utf-8") as f:
     readme = f.read()
 
+
 setup(
   name='dbleupy',
-  version='2.1.3',
+  version='3.0.0',
   description='This package offers you a more user friendly and easier way to interact with the discord-botlist.eu HTTP api.',
   long_description=readme,
   long_description_content_type="text/markdown",

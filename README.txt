@@ -8,34 +8,30 @@ This package offers you a more user friendly and easier way to interact with the
 Installing
 ----------
 
-**Python 3.4 or higher is required - If you want to use auto_post, you must have discord.ext**
+**Python 3.4 or higher is required** - In the example py-cord was used, but other libs can be used as well.
 
 To install the library you can just run the following command:
 
-
-    # Linux/macOS
-    python3 -m pip install -U dbleupy
-
-    # Windows
-    py -3 -m pip install -U dbleupy
+    pip install dbleupy
 
 
-Quick Example
+Quick Example (belongs in the on_ready event)
 --------------
     from dbleupy import dbleu_postservercount, dbleu_getbotvotes, dbleu_getbotdata
 
     dbleuKEY = "APIKEY" # Get it from https://dev.discord-botlist.eu
 
-    r = dbleu_getbotvotes(dbleuKEY)
+    r = dbleu_getbotvotes(dbleuKEY, log_disable=False/True)
     print(r.content)
     # GET ALL BOT VOTES
 
-    r = dbleu_getbotdata(dbleuKEY)
+    r = dbleu_getbotdata(dbleuKEY, log_disable=False/True)
     print(r.content)
     # GET BOTDATA
 
-    dbleu_postservercount(dbleuKEY, len(client/bot.guilds))
-    # POST SERVERCOUNT
+    dbleu_postservercount(dbleuKEY, bot/self.bot)
+    # POST SERVERCOUNT 
+    # IMPORTANT: The second parameter must be the discord.ext.commands.bot.Bot object
 
 
 Example with auto post
@@ -45,17 +41,18 @@ from discord.ext import tasks
 
 dbleuKEY = "APIKEY" # Get it from https://dev.discord-botlist.eu
 
-r = dbleu_getbotvotes(dbleuKEY)
+r = dbleu_getbotvotes(dbleuKEY, log_disable=False/True)
 print(r.content)
 # GET ALL BOT VOTES
 
-r = dbleu_getbotdata(dbleuKEY)
+r = dbleu_getbotdata(dbleuKEY, log_disable=False/True)
 print(r.content)
 # GET BOTDATA
 
 @tasks.loop(minutes=5)
 async def auto_post():
-    dbleu_postservercount(dbleuKEY, len(client/bot.guilds))
+    dbleu_postservercount(dbleuKEY, bot/self.bot, log_disable=False/True)
+    # IMPORTANT: The second parameter must be the discord.ext.commands.bot.Bot object
 
 auto_post.start()
 # POST SERVERCOUNT every 5 mins.
