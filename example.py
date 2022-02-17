@@ -13,16 +13,16 @@ async def on_ready():
     
     print(f"Online as {bot.user.name}")
     
-    r = dbleu_getbotvotes(dbleuKEY, log_disable=False/True)
+    r = dbleu_getbotvotes(dbleuKEY, log_disable=False)
     print(r.content)
 
-    r = dbleu_getbotdata(dbleuKEY, log_disable=False/True)
+    r = dbleu_getbotdata(dbleuKEY, log_disable=False)
     print(r.content)
 
 
 @tasks.loop(minutes=5)
 async def auto_post():
-    dbleu_postservercount(dbleuKEY, bot, log_disable=False/True)
+    dbleu_postservercount(dbleuKEY, bot, log_disable=False)
     # IMPORTANT: The second parameter must be the discord.ext.commands.bot.Bot object
 
 
