@@ -1,6 +1,7 @@
-import discord # USING py-cord
+import discord # USING py-cord (https://pypi.org/project/py-cord/)
 from dbleupy import dbleu_postservercount, dbleu_getbotvotes, dbleu_getbotdata
-from discord.ext import commands
+from discord.ext import commands, tasks
+
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("-"), intents=intents)
@@ -9,6 +10,8 @@ dbleuKEY = "" # Get it from https://dev.discord-botlist.eu
 
 @bot.event
 async def on_ready():
+
+    # Start auto_post()
     auto_post.start()
     
     print(f"Online as {bot.user.name}")
