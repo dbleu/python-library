@@ -30,7 +30,7 @@ setup(
   #charset="UTF-8",
   url='https://github.com/dbleu/python-library', 
   author='Florent Tahiri',
-  author_email='florent.tahiri@gski.de',
+  author_email='florenttahiri09@gmail.com',
   license='MIT', 
   classifiers=classifiers,
   keywords='dbleupy api http', 
